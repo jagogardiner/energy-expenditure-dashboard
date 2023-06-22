@@ -1,0 +1,73 @@
+// Required
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+// NHS Blue
+$color-nhs-blue: #005eb8;
+$color-nhs-blue-dark: #003087;
+$color-nhs-blue-light: #0072CE;
+$color-nhs-blue-lighter: #41B6E6;
+$color-nhs-blue-cyan: #00A9CE;
+
+// NHS Neutrals
+$color-nhs-black: #231f20;
+$color-nhs-grey: #425563;
+$color-nhs-grey-light: #768692;
+$color-nhs-grey-lighter: #E8EDEE;
+
+// NHS Greens
+$color-nhs-green: #006747;
+$color-nhs-green-dark: #005C4F;
+$color-nhs-green-light: #009639;
+$color-nhs-green-lighter: #78BE20;
+$color-nhs-green-cyan: #00A499;
+
+// NHS Highlights
+$color-nhs-yellow: #FAE100;
+$color-nhs-yellow-dark: #FFB81C;
+$color-nhs-orange : #ED8B00;
+$color-nhs-red: #8A1538;
+$color-nhs-pink: #AE2573;
+$color-nhs-magenta: #7C2855;
+$color-nhs-purple: #330072;
+$color-nhs-emergency: #DA291C;
+
+// Override Bootstrap variables
+$font-family-sans-serif: Arial, sans-serif;
+
+// Create colour map
+$nhs-colour-map : ("nhs-blue": $color-nhs-blue,
+    "nhs-blue-dark": $color-nhs-blue-dark,
+    "nhs-blue-light": $color-nhs-blue-light,
+    "nhs-blue-lighter": $color-nhs-blue-lighter,
+    "nhs-blue-cyan": $color-nhs-blue-cyan,
+    "nhs-black": $color-nhs-black,
+    "nhs-grey": $color-nhs-grey,
+    "nhs-grey-light": $color-nhs-grey-light,
+    "nhs-grey-lighter": $color-nhs-grey-lighter,
+    "nhs-green": $color-nhs-green,
+    "nhs-green-dark": $color-nhs-green-dark,
+    "nhs-green-light": $color-nhs-green-light,
+    "nhs-green-lighter": $color-nhs-green-lighter,
+    "nhs-green-cyan": $color-nhs-green-cyan,
+    "nhs-yellow": $color-nhs-yellow,
+    "nhs-yellow-dark": $color-nhs-yellow-dark,
+    "nhs-orange": $color-nhs-orange,
+    "nhs-red": $color-nhs-red,
+    "nhs-pink": $color-nhs-pink,
+    "nhs-magenta": $color-nhs-magenta,
+    "nhs-purple": $color-nhs-purple,
+    "nhs-emergency": $color-nhs-emergency);
+
+// Merge the NHS colour map with the Bootstrap colour map
+$theme-colors: map-merge($theme-colors, $nhs-colour-map);
+
+* {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: $color-nhs-grey-lighter;
+}
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

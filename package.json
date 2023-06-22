@@ -4,16 +4,32 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "scss src/scss/style.scss src/css/style.css && electron-forge start",
+    "build": "scss src/scss/style.scss src/css/style.css && electron-forge build",
+    "make": "scss src/scss/style.scss src/css/style.css && electron-forge make"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^25.1.1"
+    "@electron-forge/cli": "^6.2.1",
+    "@electron-forge/maker-deb": "^6.2.1",
+    "@electron-forge/maker-rpm": "^6.2.1",
+    "@electron-forge/maker-squirrel": "^6.2.1",
+    "@electron-forge/maker-zip": "^6.2.1",
+    "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
+    "@electron-forge/plugin-webpack": "^6.2.1",
+    "autoprefixer": "^10.4.14",
+    "css-loader": "^6.8.1",
+    "electron": "^25.1.1",
+    "node-sass": "^9.0.0",
+    "postcss-loader": "^7.3.3",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "url-loader": "^4.1.1"
   },
   "dependencies": {
     "bootstrap": "^5.3.0",
+    "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.7.0"
   }
 }
