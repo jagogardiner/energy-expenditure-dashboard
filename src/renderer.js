@@ -1,4 +1,9 @@
-// require bootstrap
-// require jquery
-let $ = require('jquery');
-require('bootstrap');
+function init() {
+    // Load dialog to select CSV file
+    // File path is returned as a promise
+    window.electronAPI.readFile().then((data) => {
+        console.log(data)
+    })
+}
+
+init();

@@ -1,3 +1,5 @@
-// preload
+const { contextBridge, ipcRenderer } = require('electron')
 
-// Path: src/index.html
+contextBridge.exposeInMainWorld('electronAPI', {
+    readFile: (filePath) => ipcRenderer.invoke('fs:readFile', filePath)
+})
