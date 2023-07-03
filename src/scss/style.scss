@@ -62,12 +62,13 @@ $nhs-colour-map : ("nhs-blue": $color-nhs-blue,
 // Merge the NHS colour map with the Bootstrap colour map
 $theme-colors: map-merge($theme-colors, $nhs-colour-map);
 
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
 * {
     font-family: Arial, sans-serif;
+    color: $color-nhs-grey-lighter;
 }
 
 body {
     background-color: $color-nhs-grey-lighter;
 }
-
-@import "../../node_modules/bootstrap/scss/bootstrap";
