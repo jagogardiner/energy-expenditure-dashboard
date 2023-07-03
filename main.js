@@ -4,13 +4,21 @@ const { parse } = require('csv-parse');
 const fs = require('fs')
 
 async function handleFileRead() {
-    const { canceled, filePaths } = await dialog.showOpenDialog({})
+    // Load dialog to select CSV file
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [{
+            name: 'CSV data files', extensions: ['csv']
+        }]
+    })
+    // If user canceled file selection, return
     if (canceled) {
         return
     }
-    const [filePath] = filePaths
-    const data = fs.readFileSync(filePath, 'utf-8')
 
+    const [filePath] = filePaths
+    // Read file sync with CSV as parameter
+    const data = fs.readFileSync(filePath, 'utf-8')
     // Parse CSV file to JS object
     const parsedData = await new Promise((resolve, reject) => {
         parse(data, { columns: true }, (err, records) => {
