@@ -9,8 +9,10 @@ async function handleFileRead() {
     const { canceled, filePaths } = await dialog.showOpenDialog({
         properties: ['openFile'],
         filters: [{
-            name: 'CSV/XLSX data files', extensions: ['csv', 'xlsx', 'xls', 'xlsm', 'xlsb']
-        }]
+            name: 'CSV data files', extensions: ['csv']
+        }],
+        title: 'Select CSV file to import',
+        message: 'Select the CSV file to import'
     })
     // If user canceled file selection, return
     if (canceled) {
@@ -18,21 +20,16 @@ async function handleFileRead() {
     }
     const [filePath] = filePaths
     const data = fs.readFileSync(filePath, 'utf-8')
-    if (filePath.endsWith('.csv')) {
-        return new Promise((resolve, reject) => {
-            papa.parse(data, {
-                worker: true,
-                header: true,
-                complete: function (results) {
-                    console.log('Complete', results.data.length, 'records.');
-                    resolve(results.data)
-                }
-            })
-        })
-    }
-    else {
-        throw new Error('File type not supported')
-    }
+    return new Promise((resolve, reject) => {
+        papa.parse(data, {
+            header: true,
+            worker: true,
+            complete: function (results) {
+                console.log('Complete', results.data.length, 'records.');
+                resolve(results.data);
+            }
+        });
+    });
 }
 
 function createWindow() {
@@ -49,7 +46,6 @@ function createWindow() {
 
     win.loadFile('src/index.html')
 }
-app.commandLine.appendSwitch('js-flags', '--max-old-space-size=8192');
 app.whenReady().then(() => {
     ipcMain.handle('fs:readFile', handleFileRead)
     createWindow()
