@@ -66,9 +66,37 @@ $theme-colors: map-merge($theme-colors, $nhs-colour-map);
 
 * {
     font-family: Arial, sans-serif;
-    color: $color-nhs-grey-lighter;
 }
 
 body {
     background-color: $color-nhs-grey-lighter;
+    // Text colour
+}
+
+.btn-nhs {
+    border: 2px solid $color-nhs-blue;
+    background-color: $color-nhs-grey-lighter;
+    // Text colour
+    color: black;
+    // Text size and weight
+    font-size: 0.8rem;
+    font-weight: light;
+
+    // Set svg colour
+    svg {
+        fill: $color-nhs-blue;
+    }
+
+    // Hover
+    &:hover {
+        background-color: $color-nhs-blue;
+        color: $color-nhs-grey-lighter;
+
+        svg {
+            fill: $color-nhs-grey-lighter;
+        }
+    }
+
+    height: 80px;
+    width: 80px;
 }

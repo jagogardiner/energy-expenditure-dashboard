@@ -1,36 +1,38 @@
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
-const { parse } = require('csv-parse');
+var csv = require('jquery-csv');
 const fs = require('fs')
+const papa = require("papaparse");
 
 async function handleFileRead() {
-    // Load dialog to select CSV file
+    // Load dialog to select CSV/XLSX file
     const { canceled, filePaths } = await dialog.showOpenDialog({
         properties: ['openFile'],
         filters: [{
-            name: 'CSV data files', extensions: ['csv']
+            name: 'CSV/XLSX data files', extensions: ['csv', 'xlsx', 'xls', 'xlsm', 'xlsb']
         }]
     })
     // If user canceled file selection, return
     if (canceled) {
         return
     }
-
     const [filePath] = filePaths
-    // Read file sync with CSV as parameter
     const data = fs.readFileSync(filePath, 'utf-8')
-    // Parse CSV file to JS object
-    const parsedData = await new Promise((resolve, reject) => {
-        parse(data, { columns: true }, (err, records) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(records)
-            }
+    if (filePath.endsWith('.csv')) {
+        return new Promise((resolve, reject) => {
+            papa.parse(data, {
+                worker: true,
+                header: true,
+                complete: function (results) {
+                    console.log('Complete', results.data.length, 'records.');
+                    resolve(results.data)
+                }
+            })
         })
     }
-    )
-    return parsedData
+    else {
+        throw new Error('File type not supported')
+    }
 }
 
 function createWindow() {
@@ -47,7 +49,7 @@ function createWindow() {
 
     win.loadFile('src/index.html')
 }
-
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=8192');
 app.whenReady().then(() => {
     ipcMain.handle('fs:readFile', handleFileRead)
     createWindow()
