@@ -1,9 +1,8 @@
-function init() {
-    // Load dialog to select CSV file
-    // File path is returned as a promise
-    window.electronAPI.readFile().then((data) => {
-        console.log(data)
-    })
+function readDataFile() {
+    data = window.electronAPI.readFile().then((data) => {
+        return data;
+    });
 }
 
-init();
+var paitent20192020 = readDataFile();
+var admin20192020 = readDataFile();

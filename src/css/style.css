@@ -12107,10 +12107,25 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important; } }
 * {
-  font-family: Arial, sans-serif;
-  color: #E8EDEE; }
+  font-family: Arial, sans-serif; }
 
 body {
   background-color: #E8EDEE; }
+
+.btn-nhs {
+  border: 2px solid #005eb8;
+  background-color: #E8EDEE;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: light;
+  height: 80px;
+  width: 80px; }
+  .btn-nhs svg {
+    fill: #005eb8; }
+  .btn-nhs:hover {
+    background-color: #005eb8;
+    color: #E8EDEE; }
+    .btn-nhs:hover svg {
+      fill: #E8EDEE; }
 
 /*# sourceMappingURL=style.css.map */

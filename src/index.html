@@ -13,26 +13,94 @@
 
     <body>
         <!-- Top bar -->
-        <nav class="navbar navbar-expand-lg navbar-nhs-blue bg-nhs-blue">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex justify-content-center text-white" href="#">Energy Expenditure
-                    Dashboard</a>
-                <div class="d-flex justify-content-right">
-                    <!-- NHS logo -->
-                    <img src="img/NHS 10mm - RGB Blue.jpg" class="navbar-brand" alt="NHS logo" class="nhs-logo"
-                        style="height: 50px;" />
+        <div id="container">
+            <nav class="navbar navbar-expand-lg navbar-nhs-blue bg-nhs-blue"
+                style="overflow-y: auto; position: relative;">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex justify-content-center text-white" href="#">Energy Expenditure
+                        Dashboard</a>
+                    <div class="d-flex justify-content-right">
+                        <!-- NHS logo -->
+                        <img src="img/NHS 10mm - RGB Blue.jpg" class="navbar-brand" alt="NHS logo" class="nhs-logo"
+                            style="height: 50px;" />
+                    </div>
+                </div>
+            </nav>
+            <!-- Sidebar buttons & content -->
+            <div id="sidebar" class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-auto">
+                        <div class="justify-content-left">
+                            <div class="btn-group-vertical" role="group">
+                                <!-- Square button design -->
+                                <button type="button" class="btn-nhs btn-outline-secondary mt-3" id="home-btn"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                        class="bi bi-house" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                                    </svg>
+                                    <br />Paitent overview</button>
+                                </button>
+                                <button type="button" class="btn-nhs btn-outline-secondary mt-3"
+                                    id="activity-btn">Activity</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mt-3" style="overflow-y: auto; position: absolute;">
+                        <div class="">
+                            <div id="content">
+                                <div id="home">
+                                    <h1>Home</h1>
+                                    <p>Welcome to the NHS Energy Expenditure Dashboard. Please select a category from
+                                        the
+                                        sidebar to begin.</p>
+                                </div>
+                                <div id="activity">
+                                    <h1>Activity</h1>
+                                    <p>Activity content</p>
+                                </div>
+                                <div id="food">
+                                    <h1>Food</h1>
+                                    <p>Food content</p>
+                                </div>
+                                <div id="sleep">
+                                    <h1>Sleep</h1>
+                                    <p>Sleep content</p>
+                                </div>
+                                <div id="logout">
+                                    <h1>Logout</h1>
+                                    <p>Logout content</p>
+                                </div>
+                                <div id="logout">
+                                    <h1>Logout</h1>
+                                    <p>Logout content</p>
+                                </div>
+                                <div id="logout">
+                                    <h1>Logout</h1>
+                                    <p>Logout content</p>
+                                </div>
+                                <div id="logout">
+                                    <h1>Logout</h1>
+                                    <p>Logout content</p>
+                                </div>
+                                <div id="logout">
+                                    <h1>Logout</h1>
+                                    <p>Logout content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </nav>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-            integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-            crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+                integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+                crossorigin="anonymous"></script>
     </body>
     <script src="./renderer.js"></script>
 
