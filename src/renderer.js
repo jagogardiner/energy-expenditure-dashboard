@@ -1,5 +1,6 @@
 var sortedPatients;
 var adminPaitentData;
+var chart;
 alert("Please open Paitent Data file. Please wait! This may take a while to load.");
 window.electronAPI.readFile().then((data) => {
     // Sort data per patient
@@ -8,9 +9,18 @@ window.electronAPI.readFile().then((data) => {
     window.electronAPI.readFile().then((data) => {
         // Sort admin drugs per patient
         adminPaitentData = sortAdminDrugs(sortedPatients, data);
+        // Populate paitent list option box
+        var select = document.getElementById("patientIDList");
+        for (var i = 0; i < adminPaitentData.length; i++) {
+            var opt = adminPaitentData[i].PatientIDnew;
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
         // Create charts
         (async function () {
-            createChartPatient(1097);
+            createChartPatient(adminPaitentData[0].PatientIDnew);
         })();
     });
 });
@@ -104,8 +114,10 @@ function sortDataPaitents(data) {
 function createChartPatient(patientID) {
     var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
     var options = {
+        spanGaps: true,
         responsive: true,
         maintainAspectRatio: false,
+        animation: true,
         scales: {
             y: {
                 min: 0,
@@ -113,22 +125,84 @@ function createChartPatient(patientID) {
                     font: {
                         size: 10
                     },
-                    stepSize: 10,
+                    stepSize: 20,
                 }
+            },
+            x: {
+                type: 'time',
             },
         },
         plugins: {
             legend: {
-                position: 'right',
-                maxWidth: 400,
-            },
-            tooltip: {
-                enabled: true,
-                callbacks: {
-                    label: () => " label",
+                position: 'top',
+                // Don't show legend items if all data is null
+                labels: {
+                    filter: (legendItem, chartData) => (!chartData.datasets[legendItem.datasetIndex].data.every(item => item === null))
                 },
             },
-        },
+            tooltip:
+            {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        var unitName = patient.Observations[tooltipItem.dataIndex].UnitName;
+                        var obsVal = patient.Observations[tooltipItem.dataIndex].ObsValue;
+                        // Append unit name to the tooltip
+                        return tooltipItem.dataset.label + ": " + obsVal + " " + unitName;
+                    },
+                    afterLabel: function (tooltipItem) {
+                        var tooltipLabelArray = [];
+                        var obsTime = patient.Observations[tooltipItem.dataIndex].ObsTime;
+                        // Find the all data in observations for the selected point
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Axilla Temperature"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Environment Temp."));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Mattress  Temp"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "SkinTemp (Core)"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Position"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Temp. (Overhead)"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation / Support"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation Mode"));
+                        // Create the tooltip text, if data is null then don't show it
+                        var tooltipText = "";
+                        tooltipLabelArray.forEach(element => {
+                            if (element != null) {
+                                tooltipText += element.Abbreviation + ": " + element.ObsValue + "\n";
+                            }
+                        }
+                        );
+                        return tooltipText;
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Patient ID: ' + patientID,
+            },
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'xy',
+                },
+                pan: {
+                    enabled: true,
+                    mode: 'xy',
+                },
+                limits: {
+                    x: {
+                        min: 'original',
+                        max: 'original',
+                    },
+                    y: {
+                        min: 'original',
+                        max: 'original',
+                    },
+                }
+            },
+        }
     }
     var chartData = {
         type: 'line',
@@ -152,10 +226,6 @@ function createChartPatient(patientID) {
                 data: patient.Observations.map((x) => x.Abbreviation == "*FiO2" ? x.ObsValue : null),
             },
             {
-                label: 'Temp. (Overhead)',
-                data: patient.Observations.map((x) => x.Abbreviation == "Temp. (Overhead)" ? x.ObsValue : null),
-            },
-            {
                 label: 'NIBPdias',
                 data: patient.Observations.map((x) => x.Abbreviation == "*NIBPdias" ? x.ObsValue : null),
             },
@@ -168,51 +238,27 @@ function createChartPatient(patientID) {
                 data: patient.Observations.map((x) => x.Abbreviation == "*NIBPsys" ? x.ObsValue : null),
             },
             {
-                label: 'Axillary Temp',
-                data: patient.Observations.map((x) => x.Abbreviation == "Axillary Temp" ? x.ObsValue : null),
-            },
-            {
-                label: 'Environment Temp',
-                data: patient.Observations.map((x) => x.Abbreviation == "Environment Temp" ? x.ObsValue : null),
-            },
-            {
-                label: 'Mattress Temp',
-                data: patient.Observations.map((x) => x.Abbreviation == "Mattress Temp" ? x.ObsValue : null),
-            },
-            {
-                label: 'Pinsp (set PIP)',
-                data: patient.Observations.map((x) => x.Abbreviation == "Pinsp (set PIP)" ? x.ObsValue : null),
-            },
-            {
-                label: 'Position',
-                data: patient.Observations.map((x) => x.Abbreviation == "Position" ? x.ObsValue : null),
+                label: 'Vent Measured RR',
+                data: patient.Observations.map((x) => x.Abbreviation == "Vent Measured RR" ? x.ObsValue : null),
             },
             {
                 label: 'Set PEEP',
                 data: patient.Observations.map((x) => x.Abbreviation == "Set PEEP" ? x.ObsValue : null),
             },
             {
-                label: 'Set PEEP or CPAP',
-                data: patient.Observations.map((x) => x.Abbreviation == "Set PEEP or CPAP" ? x.ObsValue : null),
+                label: 'Set PEEP (or CPAP)',
+                data: patient.Observations.map((x) => x.Abbreviation == "Set PEEP (or CPAP)" ? x.ObsValue : null),
             },
             {
-                label: 'Skin Temp',
-                data: patient.Observations.map((x) => x.Abbreviation == "Skin Temp" ? x.ObsValue : null),
-            },
-            {
-                label: 'Vent Measured RR',
-                data: patient.Observations.map((x) => x.Abbreviation == "Vent Measured RR" ? x.ObsValue : null),
-            },
-            {
-                label: 'Ventilation/Support',
-                data: patient.Observations.map((x) => x.Abbreviation == "Ventilation/Support" ? x.ObsValue : null),
-            },
-            {
-                label: 'Ventilation/Mode',
-                data: patient.Observations.map((x) => x.Abbreviation == "Ventilation/Mode" ? x.ObsValue : null),
+                label: 'PINSP (set PIP)',
+                data: patient.Observations.map((x) => x.Abbreviation == "Pinsp (set PIP)" ? x.ObsValue : null),
             },
             ]
         }
     }
-    window.electronAPI.createChart(chartData, "overviewChart")
+    if (chart) {
+        chart.destroy();
+    }
+    const ctx = document.getElementById('overviewChart').getContext('2d');
+    chart = new Chart(ctx, chartData);
 }

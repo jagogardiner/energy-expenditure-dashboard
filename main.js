@@ -1,6 +1,5 @@
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
-var csv = require('jquery-csv');
 const fs = require('fs')
 const papa = require("papaparse");
 
@@ -43,7 +42,6 @@ function createWindow() {
             enableRemoteModule: true,
         }
     })
-
     win.loadFile('src/index.html')
 }
 app.whenReady().then(() => {

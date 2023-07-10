@@ -4,9 +4,10 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "scss src/scss/style.scss src/css/style.css && electron-forge start",
+    "start": "electron-forge start",
     "build": "scss src/scss/style.scss src/css/style.css && electron-forge build",
-    "make": "scss src/scss/style.scss src/css/style.css && electron-forge make"
+    "make": "scss src/scss/style.scss src/css/style.css && electron-forge make",
+    "scss": "src/scss/style.scss src/css/style.css"
   },
   "author": "",
   "license": "ISC",
@@ -40,9 +41,6 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.7.0",
     "jquery-csv": "^1.0.21",
-    "moment": "^2.29.4",
-    "papaparse": "^5.4.1",
-    "sheetjs": "^2.0.0",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
+    "papaparse": "^5.4.1"
   }
 }
