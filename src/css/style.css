@@ -12157,7 +12157,7 @@ body {
 .wave {
   width: 5px;
   height: 100px;
-  background: linear-gradient(45deg, cyan, #fff);
+  background: linear-gradient(45deg, #005eb8, #fff);
   margin: 10px;
   animation: wave 1s linear infinite;
   border-radius: 20px; }
@@ -12196,7 +12196,5 @@ body {
     transform: scale(1); }
   100% {
     transform: scale(0); } }
-#searchBar {
-  max-width: 50%; }
 
 /*# sourceMappingURL=style.css.map */
