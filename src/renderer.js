@@ -1,13 +1,14 @@
 var sortedPatients;
 var adminPaitentData;
-var chart;
-alert("Please open Paitent Data file. Please wait! This may take a while to load.");
-$('#fader').css('display', 'block');
+var patientChart;
+var adminChart;
+$('#fader').fadeIn(1000);
 $('#loading').css('display', 'flex');
+alert("Please open paitent data file. This may take a while to load.");
 window.electronAPI.readFile().then((data) => {
     // Sort data per patient
     sortedPatients = sortDataPaitents(data);
-    alert("Please open Admin Drugs file.");
+    alert("Please open administered drugs file.");
     window.electronAPI.readFile().then((data) => {
         // Sort admin drugs per patient
         adminPaitentData = sortAdminDrugs(sortedPatients, data);
@@ -22,10 +23,20 @@ window.electronAPI.readFile().then((data) => {
         }
         // Create charts
         (async function () {
-            createChartPatient(adminPaitentData[0].PatientIDnew);
+            handleChart(adminPaitentData[0].PatientIDnew);
         })();
-        $('#fader').css('display', 'none');
         $('#loading').css('display', 'none');
+        $('#fader').fadeOut(1000);
+        $(function () {
+            $("#home-btn").on('click', function () {
+                $("#administrationChart").fadeOut(500);
+                $("#overviewChart").fadeIn(500);
+            });
+            $("#activity-btn").on('click', function () {
+                $("#overviewChart").fadeOut(500);
+                $("#administrationChart").fadeIn(500);
+            });
+        });
     });
 });
 
@@ -46,7 +57,6 @@ function filterSelect(val) {
         }
     }
 }
-
 
 function sortAdminDrugs(paitentData, data) {
     // Find all admin drugs for this paitent
@@ -141,6 +151,10 @@ function sortDataPaitents(data) {
 
 function createChartPatient(patientID) {
     var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
+    if (patient == null) {
+        alert("Patient not found");
+        return;
+    }
     var options = {
         spanGaps: true,
         responsive: true,
@@ -275,9 +289,133 @@ function createChartPatient(patientID) {
             ]
         }
     }
-    if (chart) {
-        chart.destroy();
+    if (patientChart) {
+        patientChart.destroy();
     }
     const ctx = document.getElementById('overviewChart').getContext('2d');
-    chart = new Chart(ctx, chartData);
+    patientChart = new Chart(ctx, chartData);
+}
+
+function createChartAdministration(patientID) {
+    var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
+    if (patient == null) {
+        alert("Patient not found");
+        return;
+    }
+    var options = {
+        spanGaps: true,
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: true,
+        scales: {
+            y: {
+                min: 0,
+                ticks: {
+                    font: {
+                        size: 10
+                    },
+                    stepSize: 20,
+                }
+            },
+            x: {
+                type: 'time',
+            },
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                // Don't show legend items if all data is null
+                labels: {
+                    filter: (legendItem, chartData) => (!chartData.datasets[legendItem.datasetIndex].data.every(item => item === null))
+                },
+            },
+            tooltip:
+            {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        var unitName = patient.Observations[tooltipItem.dataIndex].UnitName;
+                        var obsVal = patient.Observations[tooltipItem.dataIndex].ObsValue;
+                        // Append unit name to the tooltip
+                        return tooltipItem.dataset.label + ": " + obsVal + " " + unitName;
+                    },
+                    afterLabel: function (tooltipItem) {
+                        var tooltipLabelArray = [];
+                        var obsTime = patient.Observations[tooltipItem.dataIndex].ObsTime;
+                        // Find the all data in observations for the selected point
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Axilla Temperature"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Environment Temp."));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Mattress  Temp"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "SkinTemp (Core)"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Position"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Temp. (Overhead)"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation / Support"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation Mode"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Set PEEP"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Set PEEP (or CPAP)"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Pinsp (set PIP)"));
+                        // Create the tooltip text, if data is null then don't show it
+                        var tooltipText = "";
+                        tooltipLabelArray.forEach(element => {
+                            if (element != null) {
+                                tooltipText += element.Abbreviation + ": " + element.ObsValue + "\n";
+                            }
+                        }
+                        );
+                        return tooltipText;
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Patient ID: ' + patientID,
+            },
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'xy',
+                },
+                pan: {
+                    enabled: true,
+                    mode: 'xy',
+                },
+                limits: {
+                    x: {
+                        min: 'original',
+                        max: 'original',
+                    },
+                    y: {
+                        min: 'original',
+                        max: 'original',
+                    },
+                }
+            },
+        }
+    }
+    var chartData = {
+        type: 'line',
+        options: options,
+        data: {
+            labels: patient.AdminDrugs.map((x) => x.StartTime),
+            datasets: [{
+                label: 'HR',
+                data: patient.AdminDrugs.map((x) => x.Abbreviation == "*HR" ? x.ObsValue : null),
+            },
+            ]
+        }
+    }
+    if (adminChart) {
+        adminChart.destroy();
+    }
+    const ctx = document.getElementById('administrationChart').getContext('2d');
+    adminChart = new Chart(ctx, chartData);
+}
+
+function handleChart(patientID) {
+    createChartPatient(patientID);
+    createChartAdministration(patientID);
 }
