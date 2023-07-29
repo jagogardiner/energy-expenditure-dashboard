@@ -12157,7 +12157,7 @@ body {
 .wave {
   width: 5px;
   height: 100px;
-  background: linear-gradient(45deg, #005eb8, #fff);
+  background: linear-gradient(45deg, #003087, #005eb8);
   margin: 10px;
   animation: wave 1s linear infinite;
   border-radius: 20px; }

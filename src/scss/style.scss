@@ -133,7 +133,7 @@ body {
 .wave {
     width: 5px;
     height: 100px;
-    background: linear-gradient(45deg, $color-nhs-blue, #fff);
+    background: linear-gradient(45deg, $color-nhs-blue-dark, $color-nhs-blue);
     margin: 10px;
     animation: wave 1s linear infinite;
     border-radius: 20px;
