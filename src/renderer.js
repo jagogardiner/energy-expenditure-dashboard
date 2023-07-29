@@ -59,12 +59,16 @@ $(function () {
 function filterSelect(val) {
     // When the box is changed then remove all the options from the select and add back in only the ones that match the filter.
     var select = document.getElementById("patientIDList");
+    // Remove all options from the select
     var length = select.options.length;
     for (i = length - 1; i >= 0; i--) {
         select.options[i] = null;
     }
+    // Add the default option back in
     for (var i = 0; i < adminPaitentData.length; i++) {
+        // Check if the ID contains the filter
         if (adminPaitentData[i].PatientIDnew.includes(val)) {
+            // Add the option to the select
             var opt = adminPaitentData[i].PatientIDnew;
             var el = document.createElement("option");
             el.textContent = opt;
@@ -77,10 +81,14 @@ function filterSelect(val) {
 function sortAdminDrugs(paitentData, data) {
     // Find all admin drugs for this paitent
     paitentData.forEach(paitent => {
+        // Create a temp array to hold the data
         var tempID = paitent.PatientIDnew;
+        // Loop through all the data
         data.forEach(element => {
+            // Check if the ID is the same as the last one
             if (tempID == element.PatientIDnew) {
                 var adminTemp = {
+                    // Add the data to the temp array
                     DoseFormName: element.DoseFormName,
                     RouteName: element.RouteName,
                     OrderID1: element.OrderID1,
@@ -94,10 +102,12 @@ function sortAdminDrugs(paitentData, data) {
                     Frequency: element.Frequency,
                     TemplateName: element.TemplateName,
                 }
+                // Add the temp array to the paitent array
                 paitent.AdminDrugs.push(adminTemp);
             }
         });
     });
+    // Return the paitent data
     return paitentData;
 }
 
@@ -124,7 +134,9 @@ function sortDataPaitents(data) {
             if (element.ObsValue == "") {
                 // skip this element
             } else {
+                // Check if the ID is the same as the last one
                 if (tempID == element.PatientIDnew) {
+                    // Add the observation to the array, delete the unneeded data
                     delete element.PatientIDnew;
                     delete element.PatientIDnew;
                     delete element.DoB;
@@ -134,9 +146,12 @@ function sortDataPaitents(data) {
                     delete element.UnitFromTime;
                     delete element.UnitToTime;
                     delete element.eCaMISDischargeDate;
+                    // Add the observation to the array
                     PaitentTemp.Observations.push(element);
                 } else {
+                    // Add the patient to the array, delete the unneeded data
                     newDataArray.push(PaitentTemp);
+                    // Create a new patient
                     PaitentTemp = {
                         PatientIDnew: element.PatientIDnew,
                         DoB: element.DoB,
@@ -149,7 +164,9 @@ function sortDataPaitents(data) {
                         Observations: [],
                         AdminDrugs: []
                     }
+                    // Set the new ID
                     tempID = element.PatientIDnew;
+                    // Add the observation to the array, delete the unneeded data
                     delete element.PatientIDnew;
                     delete element.DoB;
                     delete element.Age;
@@ -162,20 +179,24 @@ function sortDataPaitents(data) {
                 }
             }
     });
+    // Add the last patient to the array
     return newDataArray;
 }
 
 function createChartPatient(patientID) {
+    // Find the patient in the array
     var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
     if (patient == null) {
         alert("Patient not found");
         return;
     }
+    // Create the chart options
     var options = {
         spanGaps: true,
         responsive: true,
         maintainAspectRatio: false,
         animation: true,
+        // Set the y axis min to 0 and set the step size to 20
         scales: {
             y: {
                 min: 0,
@@ -190,6 +211,7 @@ function createChartPatient(patientID) {
                 type: 'time',
             },
         },
+        // Create the tooltip
         plugins: {
             legend: {
                 position: 'top',
@@ -201,13 +223,17 @@ function createChartPatient(patientID) {
             tooltip:
             {
                 callbacks: {
+                    // Create the tooltip label
                     label: function (tooltipItem) {
+                        // Callback to get the unit name and obs value
                         var unitName = patient.Observations[tooltipItem.dataIndex].UnitName;
                         var obsVal = patient.Observations[tooltipItem.dataIndex].ObsValue;
                         // Append unit name to the tooltip
                         return tooltipItem.dataset.label + ": " + obsVal + " " + unitName;
                     },
+                    // Create the tooltip after label
                     afterLabel: function (tooltipItem) {
+                        // Create an array to hold all the data for the selected point
                         var tooltipLabelArray = [];
                         var obsTime = patient.Observations[tooltipItem.dataIndex].ObsTime;
                         // Find the all data in observations for the selected point
@@ -306,18 +332,23 @@ function createChartPatient(patientID) {
         }
     }
     if (patientChart) {
+        // If the chart already exists then destroy it
         patientChart.destroy();
     }
+    // Create the chart with ctx
     const ctx = document.getElementById('overviewChart').getContext('2d');
     patientChart = new Chart(ctx, chartData);
 }
 
 function createChartAdministration(patientID) {
+    // Find the patient in the array
     var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
+    // Check that the patient exists
     if (patient == null) {
         alert("Patient not found");
         return;
     }
+    // Create the chart options
     var options = {
         spanGaps: true,
         responsive: true,
@@ -412,10 +443,13 @@ function createChartAdministration(patientID) {
             },
         }
     }
+    // Create the chart data
     var chartData = {
+        // Create the chart type
         type: 'line',
         options: options,
         data: {
+            // Create the labels for the chart
             labels: patient.AdminDrugs.map((x) => x.StartTime),
             datasets: [{
                 label: 'HR',
@@ -425,8 +459,10 @@ function createChartAdministration(patientID) {
         }
     }
     if (adminChart) {
+        // If the chart already exists then destroy it
         adminChart.destroy();
     }
+    // Create the chart with ctx
     const ctx = document.getElementById('administrationChart').getContext('2d');
     adminChart = new Chart(ctx, chartData);
 }
