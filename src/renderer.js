@@ -2,6 +2,8 @@ var sortedPatients;
 var adminPaitentData;
 var chart;
 alert("Please open Paitent Data file. Please wait! This may take a while to load.");
+$('#fader').css('display', 'block');
+$('#loading').css('display', 'flex');
 window.electronAPI.readFile().then((data) => {
     // Sort data per patient
     sortedPatients = sortDataPaitents(data);
@@ -22,8 +24,30 @@ window.electronAPI.readFile().then((data) => {
         (async function () {
             createChartPatient(adminPaitentData[0].PatientIDnew);
         })();
+        $('#fader').css('display', 'none');
+        $('#loading').css('display', 'none');
     });
 });
+
+function filterSelect(val) {
+    // When the box is changed then remove all the options from the select and add back in only the ones that match the filter.
+    var select = document.getElementById("patientIDList");
+    var length = select.options.length;
+    for (i = length - 1; i >= 0; i--) {
+        select.options[i] = null;
+    }
+    for (var i = 0; i < adminPaitentData.length; i++) {
+        if (adminPaitentData[i].PatientIDnew.includes(val)) {
+            var opt = adminPaitentData[i].PatientIDnew;
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            select.appendChild(el);
+        }
+    }
+}
+
+
 function sortAdminDrugs(paitentData, data) {
     // Find all admin drugs for this paitent
     paitentData.forEach(paitent => {
@@ -67,46 +91,50 @@ function sortDataPaitents(data) {
     }
     var tempID = data[0].PatientIDnew;
     data.forEach(element => {
-        if (element.ObsValue == "") {
+        // Check that the ID is not already in the array
+        if (newDataArray.find(x => x.PatientIDnew == element.PatientIDnew)) {
             // skip this element
-        } else {
-            if (tempID == element.PatientIDnew) {
-                delete element.PatientIDnew;
-                delete element.PatientIDnew;
-                delete element.DoB;
-                delete element.Age;
-                delete element.Gender;
-                delete element.Dept;
-                delete element.UnitFromTime;
-                delete element.UnitToTime;
-                delete element.eCaMISDischargeDate;
-                PaitentTemp.Observations.push(element);
+        } else
+            if (element.ObsValue == "") {
+                // skip this element
             } else {
-                newDataArray.push(PaitentTemp);
-                PaitentTemp = {
-                    PatientIDnew: element.PatientIDnew,
-                    DoB: element.DoB,
-                    Age: element.Age,
-                    Gender: element.Gender,
-                    Dept: element.Dept,
-                    UnitFromTime: element.UnitFromTime,
-                    UnitToTime: element.UnitToTime,
-                    eCaMISDischargeDate: element.eCaMISDischargeDate,
-                    Observations: [],
-                    AdminDrugs: []
+                if (tempID == element.PatientIDnew) {
+                    delete element.PatientIDnew;
+                    delete element.PatientIDnew;
+                    delete element.DoB;
+                    delete element.Age;
+                    delete element.Gender;
+                    delete element.Dept;
+                    delete element.UnitFromTime;
+                    delete element.UnitToTime;
+                    delete element.eCaMISDischargeDate;
+                    PaitentTemp.Observations.push(element);
+                } else {
+                    newDataArray.push(PaitentTemp);
+                    PaitentTemp = {
+                        PatientIDnew: element.PatientIDnew,
+                        DoB: element.DoB,
+                        Age: element.Age,
+                        Gender: element.Gender,
+                        Dept: element.Dept,
+                        UnitFromTime: element.UnitFromTime,
+                        UnitToTime: element.UnitToTime,
+                        eCaMISDischargeDate: element.eCaMISDischargeDate,
+                        Observations: [],
+                        AdminDrugs: []
+                    }
+                    tempID = element.PatientIDnew;
+                    delete element.PatientIDnew;
+                    delete element.DoB;
+                    delete element.Age;
+                    delete element.Gender;
+                    delete element.Dept;
+                    delete element.UnitFromTime;
+                    delete element.UnitToTime;
+                    delete element.eCaMISDischargeDate;
+                    PaitentTemp.Observations.push(element);
                 }
-                tempID = element.PatientIDnew;
-                delete element.PatientIDnew;
-                delete element.DoB;
-                delete element.Age;
-                delete element.Gender;
-                delete element.Dept;
-                delete element.UnitFromTime;
-                delete element.UnitToTime;
-                delete element.eCaMISDischargeDate;
-                PaitentTemp.Observations.push(element);
             }
-        }
     });
     return newDataArray;
 }
@@ -161,6 +189,9 @@ function createChartPatient(patientID) {
                         tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Temp. (Overhead)"));
                         tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation / Support"));
                         tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation Mode"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Set PEEP"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Set PEEP (or CPAP)"));
+                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Pinsp (set PIP)"));
                         // Create the tooltip text, if data is null then don't show it
                         var tooltipText = "";
                         tooltipLabelArray.forEach(element => {
@@ -240,19 +271,7 @@ function createChartPatient(patientID) {
             {
                 label: 'Vent Measured RR',
                 data: patient.Observations.map((x) => x.Abbreviation == "Vent Measured RR" ? x.ObsValue : null),
-            },
-            {
-                label: 'Set PEEP',
-                data: patient.Observations.map((x) => x.Abbreviation == "Set PEEP" ? x.ObsValue : null),
-            },
-            {
-                label: 'Set PEEP (or CPAP)',
-                data: patient.Observations.map((x) => x.Abbreviation == "Set PEEP (or CPAP)" ? x.ObsValue : null),
-            },
-            {
-                label: 'PINSP (set PIP)',
-                data: patient.Observations.map((x) => x.Abbreviation == "Pinsp (set PIP)" ? x.ObsValue : null),
-            },
+            }
             ]
         }
     }
