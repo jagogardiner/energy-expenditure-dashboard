@@ -452,9 +452,37 @@ function createChartAdministration(patientID) {
             // Create the labels for the chart
             labels: patient.AdminDrugs.map((x) => x.StartTime),
             datasets: [{
-                label: 'HR',
-                data: patient.AdminDrugs.map((x) => x.Abbreviation == "*HR" ? x.ObsValue : null),
+                label: 'Dose',
+                data: patient.AdminDrugs.map((x) => x.AdministeredDose),
             },
+            {
+                label: 'Actual Dose',
+                data: patient.AdminDrugs.map((x) => x.ActualDose),
+            },
+            {
+                label: 'Frequency',
+                data: patient.AdminDrugs.map((x) => x.Frequency),
+            },
+            {
+                label: 'Drug Name',
+                data: patient.AdminDrugs.map((x) => x.DrugName),
+            },
+            {
+                label: 'Route Name',
+                data: patient.AdminDrugs.map((x) => x.RouteName),
+            },
+            {
+                label: 'Dose Form Name',
+                data: patient.AdminDrugs.map((x) => x.DoseFormName),
+            },
+            {
+                label: 'Template Name',
+                data: patient.AdminDrugs.map((x) => x.TemplateName),
+            },
+            {
+                label: 'Order ID1',
+                data: patient.AdminDrugs.map((x) => x.OrderID1),
+            }
             ]
         }
     }
