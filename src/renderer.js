@@ -360,8 +360,7 @@ function createChartAdministration(patientID) {
                 ticks: {
                     font: {
                         size: 10
-                    },
-                    stepSize: 20,
+                    }
                 }
             },
             x: {
@@ -380,31 +379,30 @@ function createChartAdministration(patientID) {
             {
                 callbacks: {
                     label: function (tooltipItem) {
-                        var unitName = patient.Observations[tooltipItem.dataIndex].UnitName;
-                        var obsVal = patient.Observations[tooltipItem.dataIndex].ObsValue;
-                        // Append unit name to the tooltip
-                        return tooltipItem.dataset.label + ": " + obsVal + " " + unitName;
+                        // Return the template name
+                        var TemplateName = patient.Observations[tooltipItem.dataIndex].TemplateName;
+                        return TemplateName;
                     },
                     afterLabel: function (tooltipItem) {
                         var tooltipLabelArray = [];
-                        var obsTime = patient.Observations[tooltipItem.dataIndex].ObsTime;
+                        var startTime = patient.Observations[tooltipItem.dataIndex].StartTime;
                         // Find the all data in observations for the selected point
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Axilla Temperature"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Environment Temp."));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Mattress  Temp"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "SkinTemp (Core)"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Position"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Temp. (Overhead)"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation / Support"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Ventilation Mode"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Set PEEP"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Set PEEP (or CPAP)"));
-                        tooltipLabelArray.push(patient.Observations.find(x => x.ObsTime == obsTime && x.Abbreviation == "Pinsp (set PIP)"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Adrenaline"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Dexamethasone"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Dopamine"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Esomeprazole"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Fentanyl"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Furosemide"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Hydrocortisone"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Midazolam"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Morphine"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Milrinone"));
+                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Noradrenaline"));
                         // Create the tooltip text, if data is null then don't show it
                         var tooltipText = "";
                         tooltipLabelArray.forEach(element => {
                             if (element != null) {
-                                tooltipText += element.Abbreviation + ": " + element.ObsValue + "\n";
+                                tooltipText += element.DrugName + ": " + element.AdministeredDose + "\n";
                             }
                         }
                         );
@@ -452,44 +450,58 @@ function createChartAdministration(patientID) {
             // Create the labels for the chart
             labels: patient.AdminDrugs.map((x) => x.StartTime),
             datasets: [{
-                label: 'Dose',
-                data: patient.AdminDrugs.map((x) => x.AdministeredDose),
+                label: 'Adrenaline',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Adrenaline" ? x.ActualDose : null),
             },
             {
-                label: 'Actual Dose',
-                data: patient.AdminDrugs.map((x) => x.ActualDose),
+                label: 'Dexamethasone',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Dexamethasone" ? x.ActualDose : null),
             },
             {
-                label: 'Frequency',
-                data: patient.AdminDrugs.map((x) => x.Frequency),
+                label: 'Dopamine',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Dopamine" ? x.ActualDose : null),
             },
             {
-                label: 'Drug Name',
-                data: patient.AdminDrugs.map((x) => x.DrugName),
+                label: 'Esomeprazole',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Esomeprazole" ? x.ActualDose : null),
             },
             {
-                label: 'Route Name',
-                data: patient.AdminDrugs.map((x) => x.RouteName),
+                label: 'Fentanyl',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Fentanyl" ? x.ActualDose : null),
             },
             {
-                label: 'Dose Form Name',
-                data: patient.AdminDrugs.map((x) => x.DoseFormName),
+                label: 'Furosemide',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Furosemide" ? x.ActualDose : null),
             },
             {
-                label: 'Template Name',
-                data: patient.AdminDrugs.map((x) => x.TemplateName),
+                label: 'Hydrocortisone',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Hydrocortisone" ? x.ActualDose : null),
             },
             {
-                label: 'Order ID1',
-                data: patient.AdminDrugs.map((x) => x.OrderID1),
+                label: 'Midazolam',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Midazolam" ? x.ActualDose : null),
+            },
+            {
+                label: 'Morphine',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Morphine" ? x.ActualDose : null),
+            },
+            {
+                label: 'Milrinone',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Milrinone" ? x.ActualDose : null),
+            },
+            {
+                label: 'Noradrenaline',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Noradrenaline" ? x.ActualDose : null),
             }
             ]
         }
     }
+
     if (adminChart) {
         // If the chart already exists then destroy it
         adminChart.destroy();
     }
+    console.log(chartData.data.datasets)
     // Create the chart with ctx
     const ctx = document.getElementById('administrationChart').getContext('2d');
     adminChart = new Chart(ctx, chartData);
