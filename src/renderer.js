@@ -28,6 +28,7 @@ window.electronAPI.readFile().then((data) => {
         // Hide loading screen
         $('#loading').css('display', 'none');
         $('#fader').fadeOut(1000);
+        $("#administrationChart").hide();
     });
 });
 
