@@ -1,6 +1,6 @@
 {
   "name": "nhs-expenditure-dashboard",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "NHS Energy Expenditure Dashboard",
   "main": "main.js",
   "scripts": {
