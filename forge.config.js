@@ -3,6 +3,20 @@ module.exports = {
     asar: true,
     icon: './src/img/nhs-sq',
   },
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          // !important: Please change this to your own repository.
+          owner: 'jagogardiner',
+          name: 'energy-expenditure-dashboard'
+        },
+        prerelease: false,
+        draft: true
+      }
+    }
+  ],
   rebuildConfig: {},
   makers: [
     {
