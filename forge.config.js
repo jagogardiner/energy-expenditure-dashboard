@@ -1,24 +1,31 @@
 module.exports = {
   packagerConfig: {
     asar: true,
-    icon: './src/img/nhs-sq.png',
+    icon: './src/img/nhs-sq',
   },
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel'
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        name: "Energy Expenditure Dashboard",
+        iconUrl: './src/img/nhs-sq.ico',
+        setupIcon: './src/img/nhs-sq.ico',
+      }
     },
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
       config: {
-        icon: './src/img/nhs-sq.png',
+        name: "Energy Expenditure Dashboard",
+        icon: './src/img/nhs-sq.icns',
       },
     },
     {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
+          name: "Energy Expenditure Dashboard",
           icon: './src/img/nhs-sq.png',
         }
       },
@@ -27,6 +34,7 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {
         options: {
+          name: "Energy Expenditure Dashboard",
           icon: './src/img/nhs-sq.png',
         }
       },
