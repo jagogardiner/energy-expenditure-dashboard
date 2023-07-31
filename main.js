@@ -50,8 +50,8 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: true,
             enableRemoteModule: true,
-            icon: path.join(__dirname, 'img/nhs-sq.png')
-        }
+        },
+        icon: path.join(__dirname, 'img/nhs-sq.png')
     })
     // Load index.html, main page
     win.loadFile('src/index.html')
