@@ -6,11 +6,7 @@ module.exports = {
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        // The ICO file to use as the icon for the generated Setup.exe
-        setupIcon: './src/img/nhs-sq.png'
-      }
+      name: '@electron-forge/maker-squirrel'
     },
     {
       name: '@electron-forge/maker-zip',
