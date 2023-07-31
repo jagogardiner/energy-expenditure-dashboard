@@ -10,7 +10,7 @@
     "scss": "src/scss/style.scss src/css/style.css",
     "publish": "electron-forge publish"
   },
-  "author": "",
+  "author": "Jago Gardiner",
   "license": "ISC",
   "devDependencies": {
     "@electron-forge/cli": "^6.2.1",
