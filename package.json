@@ -1,12 +1,12 @@
 {
-  "name": "energy-exp-dash",
+  "name": "nhs-expenditure-dashboard",
   "version": "1.0.0",
-  "description": "",
+  "description": "NHS Energy Expenditure Dashboard",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
-    "build": "scss src/scss/style.scss src/css/style.css && electron-forge build",
-    "make": "scss src/scss/style.scss src/css/style.css && electron-forge make",
+    "build": "electron-forge build",
+    "make": "electron-forge make",
     "scss": "src/scss/style.scss src/css/style.css"
   },
   "author": "",
@@ -42,5 +42,18 @@
     "jquery": "^3.7.0",
     "jquery-csv": "^1.0.21",
     "papaparse": "^5.4.1"
+  },
+  "forge": {
+    "publishers": [
+      {
+        "name": "@electron-forge/publisher-github",
+        "config": {
+          "repository": {
+            "owner": "jagogardiner",
+            "name": "energy-expenditure-dashboard"
+          }
+        }
+      }
+    ]
   }
 }
