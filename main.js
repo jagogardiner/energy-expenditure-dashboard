@@ -3,6 +3,7 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const papa = require("papaparse");
+require('update-electron-app')()
 
 async function handleFileRead() {
     // Load dialog to select CSV file
