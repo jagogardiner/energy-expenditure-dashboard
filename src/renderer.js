@@ -490,7 +490,6 @@ function createChartAdministration(patientID) {
         // If the chart already exists then destroy it
         adminChart.destroy();
     }
-    console.log(chartData.data.datasets)
     // Create the chart with ctx
     const ctx = document.getElementById('administrationChart').getContext('2d');
     adminChart = new Chart(ctx, chartData);

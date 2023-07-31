@@ -28,7 +28,7 @@ async function handleFileRead() {
             worker: true,
             // step: function (results, parser) {
             complete: function (results) {
-                console.log('Complete', results.data.length, 'records.');
+                console.log('Completed', results.data.length, 'records.');
                 resolve(results.data);
             },
             // err
@@ -43,8 +43,8 @@ async function handleFileRead() {
 function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1024,
+        height: 768,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
