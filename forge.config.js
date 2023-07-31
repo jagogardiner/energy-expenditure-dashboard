@@ -22,7 +22,7 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        name: "Energy Expenditure Dashboard",
+        name: "EnergyExpenditureDashboard",
         iconUrl: './src/img/nhs-sq.ico',
         setupIcon: './src/img/nhs-sq.ico',
       }
@@ -31,7 +31,7 @@ module.exports = {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
       config: {
-        name: "Energy Expenditure Dashboard",
+        name: "EnergyExpenditureDashboard",
         icon: './src/img/nhs-sq.icns',
       },
     },
@@ -39,7 +39,7 @@ module.exports = {
       name: '@electron-forge/maker-deb',
       config: {
         options: {
-          name: "Energy Expenditure Dashboard",
+          name: "EnergyExpenditureDashboard",
           icon: './src/img/nhs-sq.png',
         }
       },
@@ -48,7 +48,7 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {
         options: {
-          name: "Energy Expenditure Dashboard",
+          name: "EnergyExpenditureDashboard",
           icon: './src/img/nhs-sq.png',
         }
       },
