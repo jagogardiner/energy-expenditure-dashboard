@@ -21,14 +21,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^6.2.1",
     "@electron-forge/plugin-webpack": "^6.2.1",
     "@electron-forge/publisher-github": "^6.2.1",
-    "autoprefixer": "^10.4.14",
-    "css-loader": "^6.8.1",
-    "electron": "^25.1.1",
-    "node-sass": "^9.0.0",
-    "postcss-loader": "^7.3.3",
-    "sass-loader": "^13.3.2",
-    "style-loader": "^3.3.3",
-    "url-loader": "^4.1.1"
+    "electron": "^25.1.1"
   },
   "dependencies": {
     "@electron/remote": "^2.0.10",
