@@ -386,18 +386,6 @@ function createChartAdministration(patientID) {
                     afterLabel: function (tooltipItem) {
                         var tooltipLabelArray = [];
                         var startTime = patient.Observations[tooltipItem.dataIndex].StartTime;
-                        // Find the all data in observations for the selected point
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Adrenaline"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Dexamethasone"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Dopamine"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Esomeprazole"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Fentanyl"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Furosemide"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Hydrocortisone"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Midazolam"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Morphine"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Milrinone"));
-                        tooltipLabelArray.push(patient.AdminDrugs.find(x => x.StartTime == startTime && x.DrugName == "Noradrenaline"));
                         // Create the tooltip text, if data is null then don't show it
                         var tooltipText = "";
                         tooltipLabelArray.forEach(element => {
@@ -412,7 +400,7 @@ function createChartAdministration(patientID) {
             },
             title: {
                 display: true,
-                text: 'Patient ID: ' + patientID,
+                text: 'Drugs administration | ' + patientID,
             },
             zoom: {
                 zoom: {
