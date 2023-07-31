@@ -1,6 +1,6 @@
 {
   "name": "nhs-expenditure-dashboard",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "NHS Energy Expenditure Dashboard",
   "main": "main.js",
   "scripts": {
@@ -26,19 +26,7 @@
   "dependencies": {
     "@electron/remote": "^2.0.10",
     "electron-squirrel-startup": "^1.0.0",
-    "papaparse": "^5.4.1"
-  },
-  "forge": {
-    "publishers": [
-      {
-        "name": "@electron-forge/publisher-github",
-        "config": {
-          "repository": {
-            "owner": "jagogardiner",
-            "name": "energy-expenditure-dashboard"
-          }
-        }
-      }
-    ]
+    "papaparse": "^5.4.1",
+    "update-electron-app": "^2.0.1"
   }
 }
