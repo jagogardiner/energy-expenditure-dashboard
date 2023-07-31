@@ -22,9 +22,7 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        name: "EnergyExpenditureDashboard",
-        iconUrl: './src/img/nhs-sq.ico',
-        setupIcon: './src/img/nhs-sq.ico',
+        name: "EnergyExpenditureDashboard"
       }
     },
     {
