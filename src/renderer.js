@@ -2,6 +2,7 @@ var sortedPatients;
 var adminPaitentData;
 var patientChart;
 var adminChart;
+var statisticsChart;
 var paitentToggleView = true;
 $('#fader').fadeIn(1000);
 $('#loading').css('display', 'flex');
@@ -25,18 +26,22 @@ window.electronAPI.readFile().then((data) => {
         // Create charts
         createChartAdministration(adminPaitentData[0].PatientIDnew);
         createChartPatient(adminPaitentData[0].PatientIDnew);
+        createChartStatistics(adminPaitentData[0].PatientIDnew);
         // Hide loading screen
         $('#loading').css('display', 'none');
         $('#fader').fadeOut(1000);
         $("#administrationChart").hide();
+        $("#statisticsChart").hide();
     });
 });
 
 $(function () {
     // Logic for the sidebar buttons.
     $("#home-btn").on('click', function () {
+        $("#patientIDView").fadeIn(500);
         // Fade out the current chart and fade in the new one
         $("#administrationChart").fadeOut(500);
+        $("#statisticsChart").fadeOut(500);
         $("#overviewChart").fadeIn(500);
         // Set the toggle view to true
         paitentToggleView = true;
@@ -46,14 +51,23 @@ $(function () {
     }
     );
     $("#activity-btn").on('click', function () {
+        $("#patientIDView").fadeIn(500);
         // Fade out the current chart and fade in the new one
         $("#overviewChart").fadeOut(500);
+        $("#statisticsChart").fadeOut(500);
         $("#administrationChart").fadeIn(500);
         // Set the toggle view to false
         paitentToggleView = false;
         // Reset the select box
         var select = document.getElementById("patientIDList");
         select.selectedIndex = 0;
+    });
+    $("#statistics-btn").on('click', function () {
+        paitentToggleView = false;
+        $("#patientIDView").fadeOut(500);
+        $("#overviewChart").fadeOut(500);
+        $("#administrationChart").fadeOut(500);
+        $("#statisticsChart").fadeIn(500);
     });
 });
 
@@ -495,10 +509,127 @@ function createChartAdministration(patientID) {
     adminChart = new Chart(ctx, chartData);
 }
 
+function createChartStatistics(patientID) {
+    // Chart for overall patient statistics like no. of drugs administered, no. of observations taken etc.
+    // Don't focus on a single patient, instead show the overall statistics for all patients on a bar chart.
+    // Find the patient in the array
+    var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
+    // Check that the patient exists
+    if (patient == null) {
+        alert("Patient not found");
+        return;
+    }
+    // Create the chart options
+    var options = {
+        spanGaps: true,
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: true,
+        scales: {
+            y: {
+                min: 0,
+                ticks: {
+                    font: {
+                        size: 10
+                    }
+                }
+            },
+            x: {
+                type: 'time',
+            },
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+                // Don't show legend items if all data is null
+                labels: {
+                    filter: (legendItem, chartData) => (!chartData.datasets[legendItem.datasetIndex].data.every(item => item === null))
+                },
+            },
+            tooltip:
+            {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        // Return the template name
+                        var TemplateName = patient.Observations[tooltipItem.dataIndex].TemplateName;
+                        return TemplateName;
+                    },
+                    afterLabel: function (tooltipItem) {
+                        var tooltipLabelArray = [];
+                        var startTime = patient.Observations[tooltipItem.dataIndex].StartTime;
+                        // Create the tooltip text, if data is null then don't show it
+                        var tooltipText = "";
+                        tooltipLabelArray.forEach(element => {
+                            if (element != null) {
+                                tooltipText += element.DrugName + ": " + element.AdministeredDose + "\n";
+                            }
+                        }
+                        );
+                        return tooltipText;
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Drugs administration | ' + patientID,
+            },
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'xy',
+                },
+                pan: {
+                    enabled: true,
+                    mode: 'xy',
+                },
+                limits: {
+                    x: {
+                        min: 'original',
+                        max: 'original',
+                    },
+                    y: {
+                        min: 'original',
+                        max: 'original',
+                    },
+                }
+            },
+        }
+    }
+    // Create the chart data
+    var chartData = {
+        // Create the chart type
+        type: 'bar',
+        options: options,
+        data: {
+            // Create the labels for the chart
+            labels: patient.Observations.map((x) => x.ObsTime),
+            datasets: [{
+                label: 'Adrenaline',
+                data: patient.AdminDrugs.map((x) => x.DrugName == "Adrenaline" ? x.ActualDose : null),
+            },
+            ]
+        }
+    }
+    if (statisticsChart) {
+        // If the chart already exists then destroy it
+        statisticsChart.destroy();
+    }
+    // Create the chart with ctx
+    const ctx = document.getElementById('statisticsChart').getContext('2d');
+    statisticsChart = new Chart(ctx, chartData);
+}
+
 function handleChart(patientID) {
     // Get currently focused chart and create the one needed, then destroy the old one.
     if (paitentToggleView) {
         createChartPatient(patientID);
+    } else if (!paitentToggleView && $("#administrationChart").is(":hidden")) {
+        createChartStatistics(patientID);
     } else {
         createChartAdministration(patientID);
     }
