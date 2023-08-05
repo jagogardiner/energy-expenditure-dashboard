@@ -67,7 +67,20 @@ function sortDataPaitents(data) {
         Observations: [],
         AdminDrugs: []
     }
-    var tempID = data[0].PatientIDnew;
+    var tempID;
+    // Try/catch to ensure the data file format is valid by checking the first element of the array
+    try {
+        tempID = data[0].PatientIDnew;
+        // Ensure any of the data contains an observation (not just the first element)
+        if (data[0].ObsValue == null) {
+            throw "Observation value is missing.";
+            return;
+        }
+    } catch (error) {
+        alert("Error: Invalid data file format. " + error);
+        window.electronAPI.quitApp();
+        return;
+    }
     data.forEach(element => {
         // Check that the ID is not already in the array
         if (newDataArray.find(x => x.PatientIDnew == element.PatientIDnew)) {

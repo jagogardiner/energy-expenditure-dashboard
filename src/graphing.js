@@ -1,3 +1,7 @@
+var patientChart;
+var adminChart;
+var statisticsChart;
+
 function createChartPatient(patientID) {
     // Find the patient in the array
     var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
@@ -309,16 +313,11 @@ function createChartAdministration(patientID) {
     adminChart = new Chart(ctx, chartData);
 }
 
-function createChartStatistics(patientID) {
+function createChartStatistics() {
     // Chart for overall patient statistics like no. of drugs administered, no. of observations taken etc.
     // Don't focus on a single patient, instead show the overall statistics for all patients on a bar chart.
-    // Find the patient in the array
-    var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
-    // Check that the patient exists
-    if (patient == null) {
-        alert("Patient not found");
-        return;
-    }
+    // Get all the patients in the array
+    var patients = adminPaitentData;
     // Create the chart options
     var options = {
         spanGaps: true,
@@ -339,39 +338,9 @@ function createChartStatistics(patientID) {
             },
         },
         plugins: {
-            legend: {
-                position: 'top',
-                // Don't show legend items if all data is null
-                labels: {
-                    filter: (legendItem, chartData) => (!chartData.datasets[legendItem.datasetIndex].data.every(item => item === null))
-                },
-            },
-            tooltip:
-            {
-                callbacks: {
-                    label: function (tooltipItem) {
-                        // Return the template name
-                        var TemplateName = patient.Observations[tooltipItem.dataIndex].TemplateName;
-                        return TemplateName;
-                    },
-                    afterLabel: function (tooltipItem) {
-                        var tooltipLabelArray = [];
-                        var startTime = patient.Observations[tooltipItem.dataIndex].StartTime;
-                        // Create the tooltip text, if data is null then don't show it
-                        var tooltipText = "";
-                        tooltipLabelArray.forEach(element => {
-                            if (element != null) {
-                                tooltipText += element.DrugName + ": " + element.AdministeredDose + "\n";
-                            }
-                        }
-                        );
-                        return tooltipText;
-                    }
-                }
-            },
             title: {
                 display: true,
-                text: 'Drugs administration | ' + patientID,
+                text: 'Patient statistics',
             },
             zoom: {
                 zoom: {
@@ -407,7 +376,7 @@ function createChartStatistics(patientID) {
         options: options,
         data: {
             // Create the labels for the chart
-            labels: patient.Observations.map((x) => x.ObsTime),
+            labels: patients.map((x) => x.PatientIDnew),
             datasets: [{
                 label: 'Adrenaline',
                 data: patient.AdminDrugs.map((x) => x.DrugName == "Adrenaline" ? x.ActualDose : null),

@@ -1,8 +1,5 @@
 var sortedPatients;
 var adminPaitentData;
-var patientChart;
-var adminChart;
-var statisticsChart;
 var paitentToggleView = true;
 $('#fader').fadeIn(1000);
 $('#loading').css('display', 'flex');
