@@ -22,6 +22,16 @@ function filterSelect(val) {
 
 function sortAdminDrugs(paitentData, data) {
     // Find all admin drugs for this paitent
+    try {
+        if (data[0].AdministeredDose == null) {
+            throw "Administered value is missing.";
+            return;
+        }
+    } catch (error) {
+        alert("Error: Invalid data file format. " + error);
+        window.electronAPI.quitApp();
+        return;
+    }
     paitentData.forEach(paitent => {
         // Create a temp array to hold the data
         var tempID = paitent.PatientIDnew;
