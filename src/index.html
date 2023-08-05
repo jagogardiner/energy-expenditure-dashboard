@@ -62,17 +62,30 @@
                                         stroke-width="2" d="M12 8v8M8 12h8"></path>
                                 </svg>
                                 <br />Drug admin</button>
+                            <button type="button" class="btn-nhs btn-outline-secondary mt-3" id="statistics-btn"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-bar-chart" viewBox="0 0 16 16">
+                                    <path
+                                        d="M.5 13.5A.5.5 0 0 1 1 13h14a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5ZM3 8.5A.5.5 0 0 1 3.5 8h2a.5.5 0 0 1 0 1H3.5A.5.5 0 0 1 3 8.5Zm5-5A.5.5 0 0 1 8.5 3h2a.5.5 0 0 1 0 1H8.5A.5.5 0 0 1 8 3.5ZM7 13.5A.5.5 0 0 1 7.5 13h2a.5.5 0 0 1 0 1H7.5A.5.5 0 0 1 7 13.5ZM11 8.5A.5.5 0 0 1 11.5 8h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 11 8.5Z" />
+                                    <br />Statistics
+                            </button>
+                            <button type="button" class="btn-nhs btn-outline-secondary mt-3" id="statistics-btn"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="005eb8"
+                                    class="bi bi-question-circle" viewBox="0 0 16 16">
+                                    <br />Help
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col mt-3" style="height: 100%; max-height:100%;">
+                <div class="col mt-3" id="chartView" style="height: 100%; max-height:100%;">
                     <div id="content" style="height: 100%; width: 100%; max-height: 100%; position: relative;">
                         <canvas id="overviewChart" style="max-width: 100%; height: 100%; max-height: 100%;"></canvas>
                         <canvas id="administrationChart"
                             style="max-width: 100%; height: 100%; max-height: 100%;"></canvas>
+                        <canvas id="statisticsChart" style="max-width: 100%; height: 100%; max-height: 100%;"></canvas>
                     </div>
                 </div>
-                <div class="col-sm-auto mt-3" style="height: 100%; max-height: 100%;">
+                <div class="col-sm-auto mt-3" id="patientIDView" style="height: 100%; max-height: 100%;">
                     <label for="patientID" class="form-label">Patient ID</label>
                     <input type="text" id="patientID" name="patientID" placeholder="Filter..." class="form-control"
                         style="max-height: 100%;" size="7" onkeyup="filterSelect(this.value)">
@@ -102,5 +115,9 @@
     </body>
     <!-- Electron Renderer Script -->
     <script src="./renderer.js"></script>
+    <!-- data functions -->
+    <script src="./data.js"></script>
+    <!-- graphing functions -->
+    <script src="./graphing.js"></script>
 
 </html>
