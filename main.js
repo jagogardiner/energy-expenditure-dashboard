@@ -59,6 +59,10 @@ function createWindow() {
 app.whenReady().then(() => {
     // Register handler for file read
     ipcMain.handle('fs:readFile', handleFileRead)
+    // Register handler for app quit
+    ipcMain.on('app:quit', () => {
+        app.quit()
+    })
     // Create window
     createWindow()
     app.on('activate', () => {
