@@ -320,18 +320,12 @@ function createChartStatistics() {
     var patients = adminPaitentData;
     // Create the chart options
     var options = {
-        spanGaps: true,
         responsive: true,
         maintainAspectRatio: false,
         animation: true,
         scales: {
             y: {
-                min: 0,
-                ticks: {
-                    font: {
-                        size: 10
-                    }
-                }
+                beginAtZero: true,
             },
             x: {
                 type: 'time',
@@ -375,12 +369,20 @@ function createChartStatistics() {
         type: 'bar',
         options: options,
         data: {
-            // Create the labels for the chart
+            // Create the labels for the chart - distribution of patient records in the data
+            // Labels should be the top 50 patients with the most records in the data and ignore empty records
+            // Sort from highest to lowest
             labels: patients.map((x) => x.PatientIDnew),
-            datasets: [{
-                label: 'Adrenaline',
-                data: patient.AdminDrugs.map((x) => x.DrugName == "Adrenaline" ? x.ActualDose : null),
-            },
+            datasets: [
+                {
+                    // No. of observations taken > 0
+                    label: 'No. of observations',
+                    data: patients.map((x) => x.Observations.length ? x.Observations.length : null),
+                },
+                {
+                    label: 'No. of drugs administered',
+                    data: patients.map((x) => x.AdminDrugs.length ? x.AdminDrugs.length : null),
+                },
             ]
         }
     }
