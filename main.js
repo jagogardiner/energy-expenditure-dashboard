@@ -1,3 +1,8 @@
+/*
+ * Created Date: Saturday, June 17th 2023, 1:19:36 am
+ * Author: Jago Gardiner
+ */
+
 // Requirements for the app.
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')

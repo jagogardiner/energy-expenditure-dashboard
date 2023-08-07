@@ -1,3 +1,8 @@
+/*
+ * Created Date: Monday, August 7th 2023, 2:02:30 pm
+ * Author: Jago Gardiner
+ */
+
 $(function () {
     // Hide all help sections, this javascript is a bit messy
     $('#help-2').hide();
