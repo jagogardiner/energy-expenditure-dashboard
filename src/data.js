@@ -29,7 +29,6 @@ function sortAdminDrugs(patientData, data) {
         }
     } catch (error) {
         alert("Error: Invalid data file format. " + error);
-        window.electronAPI.quitApp();
         return;
     }
     patientData.forEach(patient => {
@@ -88,7 +87,7 @@ function sortDataPatients(data) {
         }
     } catch (error) {
         alert("Error: Invalid data file format. " + error);
-        window.electronAPI.quitApp();
+        window.electronAPI.openHelpData();
         return;
     }
     data.forEach(element => {
