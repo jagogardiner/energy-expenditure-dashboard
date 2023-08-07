@@ -19,19 +19,14 @@ module.exports = {
   ],
   rebuildConfig: {},
   makers: [
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {
-        name: "EnergyExpenditureDashboard"
-      }
-    },
+    // {
+    //   name: '@electron-forge/maker-squirrel',
+    //   config: {
+    //     name: "EnergyExpenditureDashboard"
+    //   }
+    // },
     {
       "name": "@rabbitholesyndrome/electron-forge-maker-portable",
-      "config": {
-        "portable": {
-          "artifactName": "nhs-expenditure-app-standalone-${version}.${ext}"
-        }
-      }
     },
     {
       name: '@electron-forge/maker-zip',
