@@ -38,7 +38,7 @@ async function handleFileRead() {
     })
     // If user canceled file selection, return and quit window, then display file help browser.
     if (canceled) {
-        handleHelpData();
+        app.quit();
         return;
     }
     // Read file
