@@ -66,4 +66,7 @@ $(function () {
         $("#administrationChart").fadeOut(500);
         $("#statisticsChart").fadeIn(500);
     });
+    $("#help-btn").on('click', function () {
+        window.electronAPI.openHelp();
+    });
 });

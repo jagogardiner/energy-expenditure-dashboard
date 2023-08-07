@@ -1,0 +1,63 @@
+<!-- Help file for NHS program -->
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>NHS Energy Expenditure Dashboard</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <!-- Loading animation for entire vp -->
+    <div class="fader" id="fader">
+        <div class="center" id="loading">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+    </div>
+
+    <body>
+        <!-- Top bar -->
+        <nav class="navbar navbar-expand-lg navbar-nhs-blue bg-nhs-blue" style="overflow-y: auto; position: relative;">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex justify-content-center text-white" href="#">Energy Expenditure
+                    Dashboard</a>
+                <div class="d-flex justify-content-right">
+                    <!-- NHS logo -->
+                    <img src="img/NHS 10mm - RGB Blue.jpg" class="navbar-brand" alt="NHS logo" class="nhs-logo"
+                        style="height: 50px;" />
+                </div>
+            </div>
+        </nav>
+        <!-- Load in essential scripts for UI that couldn't be modules -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+            integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </body>
+    <!-- Electron Renderer Script -->
+    <script src="./renderer.js"></script>
+    <!-- data functions -->
+    <script src="./data.js"></script>
+    <!-- graphing functions -->
+    <script src="./graphing.js"></script>
+
+</html>
