@@ -1,3 +1,7 @@
+/*
+ * Author: Jago Gardiner
+ */
+
 var sortedPatients;
 var adminPatientData;
 var patientToggleView = true;

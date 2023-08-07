@@ -1,3 +1,8 @@
+/*
+ * Created Date: Saturday, August 5th 2023, 5:17:31 pm
+ * Author: Jago Gardiner
+ */
+
 var patientChart;
 var adminChart;
 var statisticsChart;

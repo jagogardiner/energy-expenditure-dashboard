@@ -1,3 +1,8 @@
+/*
+ * Created Date: Saturday, August 5th 2023, 5:17:15 pm
+ * Author: Jago Gardiner
+ */
+// This file contains all the functions that are used to load and sort the data
 function filterSelect(val) {
     // When the box is changed then remove all the options from the select and add back in only the ones that match the filter.
     var select = document.getElementById("patientIDList");
