@@ -14,8 +14,9 @@ async function handleFileRead() {
         title: 'Select CSV file to import',
         message: 'Select the CSV file to import'
     })
-    // If user canceled file selection, return
+    // If user canceled file selection, return and quit app
     if (canceled) {
+        app.quit()
         return
     }
     // Read file
@@ -68,8 +69,8 @@ app.whenReady().then(() => {
         // Open help file
         const helpPath = path.join(__dirname, 'src/help.html')
         const helpWindow = new BrowserWindow({
-            width: 1024,
-            height: 768,
+            width: 800,
+            height: 600,
             webPreferences: {
                 preload: path.join(__dirname, 'preload.js'),
                 nodeIntegration: true,
