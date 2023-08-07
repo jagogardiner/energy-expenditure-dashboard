@@ -4,7 +4,7 @@ var statisticsChart;
 
 function createChartPatient(patientID) {
     // Find the patient in the array
-    var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
+    var patient = adminPatientData.find(x => x.PatientIDnew == patientID);
     if (patient == null) {
         alert("Patient not found");
         return;
@@ -161,7 +161,7 @@ function createChartPatient(patientID) {
 
 function createChartAdministration(patientID) {
     // Find the patient in the array
-    var patient = adminPaitentData.find(x => x.PatientIDnew == patientID);
+    var patient = adminPatientData.find(x => x.PatientIDnew == patientID);
     // Check that the patient exists
     if (patient == null) {
         alert("Patient not found");
@@ -317,7 +317,7 @@ function createChartStatistics() {
     // Chart for overall patient statistics like no. of drugs administered, no. of observations taken etc.
     // Don't focus on a single patient, instead show the overall statistics for all patients on a bar chart.
     // Get all the patients in the array
-    var patients = adminPaitentData;
+    var patients = adminPatientData;
     // Create the chart options
     var options = {
         responsive: true,
@@ -397,9 +397,9 @@ function createChartStatistics() {
 
 function handleChart(patientID) {
     // Get currently focused chart and create the one needed, then destroy the old one.
-    if (paitentToggleView) {
+    if (patientToggleView) {
         createChartPatient(patientID);
-    } else if (!paitentToggleView && $("#administrationChart").is(":hidden")) {
+    } else if (!patientToggleView && $("#administrationChart").is(":hidden")) {
         createChartStatistics(patientID);
     } else {
         createChartAdministration(patientID);
