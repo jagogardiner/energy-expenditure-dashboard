@@ -202,4 +202,13 @@ body {
     font-size: 32px;
     fill: $color-nhs-blue;
     color: $color-nhs-blue;
+    // Hover
+        &:hover {
+            background-color: $color-nhs-blue;
+            color: $color-nhs-grey-lighter;
+    
+            svg {
+                fill: $color-nhs-grey-lighter;
+            }
+        }
 }
