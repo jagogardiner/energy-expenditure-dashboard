@@ -12124,6 +12124,22 @@ body {
     .btn-nhs:hover svg {
       fill: #E8EDEE; }
 
+.btn-nhs-help {
+  border: 2px solid #006747;
+  background-color: #E8EDEE;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: light;
+  height: 80px;
+  width: 80px; }
+  .btn-nhs-help svg {
+    fill: #006747; }
+  .btn-nhs-help:hover {
+    background-color: #006747;
+    color: #E8EDEE; }
+    .btn-nhs-help:hover svg {
+      fill: #E8EDEE; }
+
 #fader {
   opacity: 0.8;
   background: black !important;
@@ -12205,6 +12221,16 @@ body {
     background-color: #005eb8;
     color: #E8EDEE; }
     .btn-nhs-html:hover svg {
+      fill: #E8EDEE; }
+
+.btn-nhs-html-help {
+  font-size: 32px;
+  fill: #006747;
+  color: #006747; }
+  .btn-nhs-html-help:hover {
+    background-color: #006747;
+    color: #E8EDEE; }
+    .btn-nhs-html-help:hover svg {
       fill: #E8EDEE; }
 
 /*# sourceMappingURL=style.css.map */
