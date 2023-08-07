@@ -3,7 +3,29 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
 const fs = require('fs')
 const papa = require("papaparse");
+var win;
 
+function handleHelpData() {
+    // get current window
+    if (win) {
+        win.close();
+    }
+    // Open help data file
+    const helpPath = path.join(__dirname, 'src/help-data.html')
+    const helpWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true,
+            contextIsolation: true,
+            enableRemoteModule: true,
+        },
+        icon: path.join(__dirname, 'img/nhs-sq.png')
+    })
+    helpWindow.loadFile(helpPath)
+    return
+}
 async function handleFileRead() {
     // Load dialog to select CSV file
     const { canceled, filePaths } = await dialog.showOpenDialog({
@@ -14,9 +36,10 @@ async function handleFileRead() {
         title: 'Select CSV file to import',
         message: 'Select the CSV file to import'
     })
-    // If user canceled file selection, return
+    // If user canceled file selection, return and quit window, then display file help browser.
     if (canceled) {
-        return
+        app.quit();
+        return;
     }
     // Read file
     const [filePath] = filePaths
@@ -42,7 +65,7 @@ async function handleFileRead() {
 
 function createWindow() {
     // Create the browser window.
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 1024,
         height: 768,
         webPreferences: {
@@ -63,6 +86,28 @@ app.whenReady().then(() => {
     ipcMain.on('app:quit', () => {
         app.quit()
     })
+    // Register handler for app help
+    ipcMain.on('app:openHelp', () => {
+        // Open help file
+        const helpPath = path.join(__dirname, 'src/help.html')
+        const helpWindow = new BrowserWindow({
+            width: 800,
+            height: 600,
+            webPreferences: {
+                preload: path.join(__dirname, 'preload.js'),
+                nodeIntegration: true,
+                contextIsolation: true,
+                enableRemoteModule: true,
+            },
+            icon: path.join(__dirname, 'img/nhs-sq.png')
+        })
+        helpWindow.loadFile(helpPath)
+    })
+    // Register handler for app data help
+    ipcMain.on('app:openHelpData', () => {
+        handleHelpData();
+    })
+
     // Create window
     createWindow()
     app.on('activate', () => {

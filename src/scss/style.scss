@@ -104,6 +104,33 @@ body {
     width: 80px;
 }
 
+.btn-nhs-help {
+    border: 2px solid $color-nhs-green;
+    background-color: $color-nhs-grey-lighter;
+    // Text colour
+    color: black;
+    // Text size and weight
+    font-size: 0.8rem;
+    font-weight: light;
+
+    // Set svg colour
+    svg {
+        fill: $color-nhs-green;
+    }
+
+    // Hover
+    &:hover {
+        background-color: $color-nhs-green;
+        color: $color-nhs-grey-lighter;
+
+        svg {
+            fill: $color-nhs-grey-lighter;
+        }
+    }
+
+    height: 80px;
+    width: 80px;
+}
 #fader {
     opacity: 0.8;
     background: black !important;
@@ -186,5 +213,45 @@ body {
 
     100% {
         transform: scale(0);
+    }
+}
+
+.help-img {
+    // Fit in small section under text, aligned center
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-nhs-html {
+    font-size: 32px;
+    fill: $color-nhs-blue;
+    color: $color-nhs-blue;
+    // Hover
+        &:hover {
+            background-color: $color-nhs-blue;
+            color: $color-nhs-grey-lighter;
+    
+            svg {
+                fill: $color-nhs-grey-lighter;
+            }
+        }
+}
+
+.btn-nhs-html-help {
+    font-size: 32px;
+    fill: $color-nhs-green;
+    color: $color-nhs-green;
+
+    // Hover
+    &:hover {
+        background-color: $color-nhs-green;
+        color: $color-nhs-grey-lighter;
+
+        svg {
+            fill: $color-nhs-grey-lighter;
+        }
     }
 }

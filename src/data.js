@@ -7,11 +7,11 @@ function filterSelect(val) {
         select.options[i] = null;
     }
     // Add the default option back in
-    for (var i = 0; i < adminPaitentData.length; i++) {
+    for (var i = 0; i < adminPatientData.length; i++) {
         // Check if the ID contains the filter
-        if (adminPaitentData[i].PatientIDnew.includes(val)) {
+        if (adminPatientData[i].PatientIDnew.includes(val)) {
             // Add the option to the select
-            var opt = adminPaitentData[i].PatientIDnew;
+            var opt = adminPatientData[i].PatientIDnew;
             var el = document.createElement("option");
             el.textContent = opt;
             el.value = opt;
@@ -20,8 +20,8 @@ function filterSelect(val) {
     }
 }
 
-function sortAdminDrugs(paitentData, data) {
-    // Find all admin drugs for this paitent
+function sortAdminDrugs(patientData, data) {
+    // Find all admin drugs for this patient
     try {
         if (data[0].AdministeredDose == null) {
             throw "Administered value is missing.";
@@ -29,12 +29,11 @@ function sortAdminDrugs(paitentData, data) {
         }
     } catch (error) {
         alert("Error: Invalid data file format. " + error);
-        window.electronAPI.quitApp();
         return;
     }
-    paitentData.forEach(paitent => {
+    patientData.forEach(patient => {
         // Create a temp array to hold the data
-        var tempID = paitent.PatientIDnew;
+        var tempID = patient.PatientIDnew;
         // Loop through all the data
         data.forEach(element => {
             // Check if the ID is the same as the last one
@@ -54,18 +53,18 @@ function sortAdminDrugs(paitentData, data) {
                     Frequency: element.Frequency,
                     TemplateName: element.TemplateName,
                 }
-                // Add the temp array to the paitent array
-                paitent.AdminDrugs.push(adminTemp);
+                // Add the temp array to the patient array
+                patient.AdminDrugs.push(adminTemp);
             }
         });
     });
-    // Return the paitent data
-    return paitentData;
+    // Return the patient data
+    return patientData;
 }
 
-function sortDataPaitents(data) {
+function sortDataPatients(data) {
     var newDataArray = [];
-    var PaitentTemp = {
+    var PatientTemp = {
         PatientIDnew: data[0].PatientIDnew,
         DoB: data[0].DoB,
         Age: data[0].Age,
@@ -88,7 +87,7 @@ function sortDataPaitents(data) {
         }
     } catch (error) {
         alert("Error: Invalid data file format. " + error);
-        window.electronAPI.quitApp();
+        window.electronAPI.openHelpData();
         return;
     }
     data.forEach(element => {
@@ -112,12 +111,12 @@ function sortDataPaitents(data) {
                     delete element.UnitToTime;
                     delete element.eCaMISDischargeDate;
                     // Add the observation to the array
-                    PaitentTemp.Observations.push(element);
+                    PatientTemp.Observations.push(element);
                 } else {
                     // Add the patient to the array, delete the unneeded data
-                    newDataArray.push(PaitentTemp);
+                    newDataArray.push(PatientTemp);
                     // Create a new patient
-                    PaitentTemp = {
+                    PatientTemp = {
                         PatientIDnew: element.PatientIDnew,
                         DoB: element.DoB,
                         Age: element.Age,
@@ -140,7 +139,7 @@ function sortDataPaitents(data) {
                     delete element.UnitFromTime;
                     delete element.UnitToTime;
                     delete element.eCaMISDischargeDate;
-                    PaitentTemp.Observations.push(element);
+                    PatientTemp.Observations.push(element);
                 }
             }
     });

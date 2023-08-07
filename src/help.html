@@ -1,0 +1,153 @@
+<!-- Help file for NHS program -->
+<html>
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>NHS EED | Help</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+
+    <body>
+        <!-- Top bar -->
+        <nav class="navbar navbar-expand-lg navbar-nhs-green bg-nhs-green" style="overflow-y: auto; position: relative;">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex justify-content-center text-white" href="#">EED | Help</a>
+                <div class="d-flex justify-content-right">
+                    <!-- NHS logo -->
+                    <img src="img/NHS 10mm - RGB Blue.jpg" class="navbar-brand" alt="NHS logo" class="nhs-logo"
+                        style="height: 50px;" />
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar buttons & content -->
+        <div id="sidebar" class="container-fluid" style="height: 100%;">
+            <div class="row" style="height: 80vh; max-height: 100%;">
+                <div class="col-sm-auto" style="height: 100%; max-height: 100%;">
+                    <div class="justify-content-left">
+                        <div class="btn-group-vertical" role="group">
+                            <!-- Square button design -->
+                            <button type="button" class="btn-nhs-help btn-outline-secondary mt-3" id="help1-btn"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-house" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                                </svg>
+                                <br />Help - home</button>
+                            </button>
+                            <button type="button" class="btn-nhs-help btn-outline-secondary mt-3" id="help2-btn"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                                    class="bi bi-house" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+                                </svg>
+                                <br />Patient help</button>
+                            </button>
+                            <button type="button" class="btn-nhs-help btn-outline-secondary mt-3" id="help3-btn"><svg
+                                    class="nhsuk-icon nhsuk-icon__plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                    aria-hidden="true" height="34" width="34">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-miterlimit="10"
+                                        stroke-width="2" d="M12 8v8M8 12h8"></path>
+                                </svg>
+                                <br />Drug view help</button>
+                            <button type="button" class="btn-nhs-help btn-outline-secondary mt-3" id="help4-btn">
+                                <i class="bi bi-graph-up btn-nhs-html-help"></i>
+                                <br />Statistics help
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mt-3" id="helpView" style="height: 100%; max-height:100%;">
+                    <div id="help-1">
+                        <!-- initial help section -->
+                        <h1 class="h1">NHS Energy Expenditure Dashboard</h1>
+
+                        This dashboard is designed to help you understand the energy expenditure of patients in the NHS. The app
+                        has 3 main sections:
+                        <ul>
+                            <li>Patients</li>
+                            <li>Drug administration</li>
+                            <li>Statistics</li>
+                        </ul>
+                        There are 3 buttons on the side of this help screen to help you understand each section. Click on the
+                        button to view the help for that section.<br />
+                    </div>
+                    <div id="help-2">
+                        <h1 class="h1">Patient help</h1>
+                        The patient section allows you to view the observations of patients in the data. You can view
+                        patients by their ID, including searching for an ID if you have a large list of patients.<br />
+                        <h4 class="h4">Graph</h4>
+                        The graph shows the different observations of the patient over time. The x-axis is the time of the
+                        observation, and the y-axis is the value of the observation. The graph can be zoomed in and out by
+                        scrolling or using gestures on your touchpad.
+                        <br />
+                        <img src="../src/img/help-scr/help-2-graph.png" class="help-img">
+                        <br />
+                        You can also adjust the parameters on the graph by clicking the different legends at the top of the graph, which will
+                        enable or disable them.
+                        <img src="./img/help-scr/help-2-legend.png" class="help-img">
+                        <br />
+                        By hovering over a point in the graph, you can also see relevant data at that point.
+                        <img src="./img/help-scr/help-2-hover.png" class="help-img">
+                        <br />
+                        <h4 class="h4">ID selection</h4>
+                        The ID selection allows you to select a patient by their ID. You can search for a patient by typing
+                        their ID into the search bar. You can also select a patient by clicking on their ID in the list.
+                        <img src="../src/img/help-scr/help-2-select.png" class="help-img">
+                    </div>
+                    <div id="help-3">
+                        <h1 class="h1">Drug administration help</h1>
+                        The drug administration section allows you to view the energy expenditure of patients in the NHS. You
+                        can view patients by their ID, including searching for an ID if you have a large list of patients.<br />
+                        <h4 class="h4">Graph</h4>
+                        The graph shows the different drug administrations of the patient over time. The x-axis is the time of the
+                        administration, and the y-axis is the value of the observation/drug. The graph can be zoomed in and out by
+                        scrolling or using gestures on your touchpad.
+                        <img src="../src/img/help-scr/help-3-graph.png" class="help-img">
+                        <br />
+                        You can also adjust the parameters on the graph by clicking the different legends at the top of the graph, which will
+                        enable or disable them.
+                        <img src="./img/help-scr/help-3-legend.png" class="help-img">
+                        <br />
+                        By hovering over a point in the graph, you can also see relevant data at that point.
+                        <img src="./img/help-scr/help-3-hover.png" class="help-img">
+                        <br />
+                        <h4 class="h4">ID selection</h4>
+                        The ID selection allows you to select a patient by their ID. You can search for a patient by typing
+                        their ID into the search bar. You can also select a patient by clicking on their ID in the list.
+                        <img src="../src/img/help-scr/help-2-select.png" class="help-img">
+                    </div>
+                    <div id="help-4">
+                        <h1 class="h1">Statistics help</h1>
+                        The statistics section allows you to view the energy expenditure of patients in the NHS. You can view
+                        patients by their ID, including searching for an ID if you have a large list of patients.<br />
+                        <h4 class="h4">Graph</h4>
+                        The graph shows the different number of observations per patient. The x-axis is the patient ID, and the
+                        y-axis is the number of observations. The graph can be zoomed in and out by scrolling or using gestures
+                        on your touchpad.
+                        <img src="../src/img/help-scr/help-4-graph.png" class="help-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Load in essential scripts for UI that couldn't be modules -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+            integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+            integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </body>
+    <script src="./help.js"></script>
+</html>

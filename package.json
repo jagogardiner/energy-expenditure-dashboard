@@ -1,6 +1,6 @@
 {
   "name": "nhs-expenditure-dashboard",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "NHS Energy Expenditure Dashboard",
   "main": "main.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "@electron-forge/plugin-webpack": "^6.2.1",
     "@electron-forge/publisher-github": "^6.2.1",
     "@rabbitholesyndrome/electron-forge-maker-portable": "^0.1.1",
+    "bootstrap": "^5.3.1",
     "electron": "^25.1.1"
   },
   "dependencies": {
