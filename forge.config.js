@@ -29,7 +29,7 @@ module.exports = {
       "name": "@rabbitholesyndrome/electron-forge-maker-portable",
       "config": {
         "portable": {
-          "artifactName": "${productName}-app-standalone-${version}.${ext}"
+          "artifactName": "nhs-expenditure-app-standalone-${version}.${ext}"
         }
       }
     },
