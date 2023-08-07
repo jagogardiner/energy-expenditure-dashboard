@@ -12201,5 +12201,10 @@ body {
   font-size: 32px;
   fill: #005eb8;
   color: #005eb8; }
+  .btn-nhs-html:hover {
+    background-color: #005eb8;
+    color: #E8EDEE; }
+    .btn-nhs-html:hover svg {
+      fill: #E8EDEE; }
 
 /*# sourceMappingURL=style.css.map */
