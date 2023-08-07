@@ -26,6 +26,14 @@ module.exports = {
       }
     },
     {
+      "name": "@rabbitholesyndrome/electron-forge-maker-portable",
+      "config": {
+        "portable": {
+          "artifactName": "${productName}-app-standalone-${version}.${ext}"
+        }
+      }
+    },
+    {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
       config: {
