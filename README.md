@@ -52,11 +52,6 @@ Drug administration data:
 - Frequency
 - TemplateName
 
-Observation data example:
-![ExcelImage1](/src/img/help-data/help-1.png)
-Drug administration data example:
-![ExcelImage2](/src/img/help-data/help-2.png)
-
 ## Graph parameters
 
 In `src/graphing.js`, the chart.js parameters use the individual patient data by the selected patient on the select element.
